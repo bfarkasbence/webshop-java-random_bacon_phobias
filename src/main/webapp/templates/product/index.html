@@ -37,6 +37,12 @@
 <div class="container">
     <div class="card">
         <strong th:text="${category.name}">Category Title</strong>
+        <select id="productFilter" name="productFilter">
+            <option value="tablet">Tablet</option>
+            <option value="phone">Phone</option>
+            <option value="console">Console</option>
+            <option value="other">Other</option>
+        </select>
     </div>
 
     <div id="products" class="row">
