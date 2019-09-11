@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ShoppingCartDaoMem implements ShoppingCartDao {
 
-    private List<Product> cartItem = new ArrayList<>();
+    public List<Product> cartItem = new ArrayList<>();
     private static ShoppingCartDaoMem instance = null;
 
     private ShoppingCartDaoMem(){
@@ -23,6 +23,7 @@ public class ShoppingCartDaoMem implements ShoppingCartDao {
 
     @Override
     public void add(Product product) {
+        System.out.println(cartItem);
         product.setId(cartItem.size() + 1);
         cartItem.add(product);
     }
