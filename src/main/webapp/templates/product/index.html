@@ -36,7 +36,24 @@
 
 <div class="container">
     <div class="card">
-        <strong th:text="${category.name}">Category Title</strong>
+        <strong th:text="${supplier != null} ? ${supplier.name}:''">Supplier Title</strong>
+        <strong th:text="${category != null} ? ${category.name}: ''">Category Title</strong>
+
+        <form method="get">
+        <select id="categoryFilter" name="categoryFilter">
+            <option value="" disabled selected>Select category</option>
+            <th:block th:each="cat : ${categories}">
+                <option  th:value="${cat.id}" th:text="${cat.name}">Category name</option>
+            </th:block>
+        </select>
+        <select id="supplierFilter" name="supplierFilter">
+            <option value="" disabled selected>Select supplier</option>
+            <th:block th:each="sup : ${suppliers}">
+                <option  th:value="${sup.id}" th:text="${sup.name}">Supplier name</option>
+            </th:block>
+        </select>
+            <input type="submit" value="submit">
+        </form>
     </div>
 
     <div id="products" class="row">
@@ -65,3 +82,4 @@
 
 </body>
 </html>
+
