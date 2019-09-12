@@ -6,6 +6,7 @@ import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.implementation.ShoppingCartDaoMem;
+import com.codecool.shop.model.OrderedItem;
 import com.codecool.shop.model.Product;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -16,8 +17,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 @WebServlet(urlPatterns = {"/"})
 public class ProductController extends HttpServlet {
@@ -38,8 +37,32 @@ public class ProductController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ShoppingCartDaoMem shoppingCart = ShoppingCartDaoMem.getInstance();
-        System.out.println(req.getParameter("add"));
-
+        ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
+        int productId = Integer.parseInt(req.getParameter("add"));
+        Product product = productDaoMem.find(productId);
+        OrderedItem orderedItem = new OrderedItem(product.getName(),product.getDefaultPrice(),product.getDefaultCurrency().toString(),product.getDescription(),product.getProductCategory(),product.getSupplier());
+        orderedItem.setId(productId);
+        boolean isNotInTheCart = false;
+        if(shoppingCart.cartItems.isEmpty()){
+            shoppingCart.add(orderedItem);
+        }
+        else{
+        for (OrderedItem item:shoppingCart.cartItems) {
+            if (item.getId() == orderedItem.getId()) {
+                item.increaseQuantity();
+                break;
+            }
+            else{
+                    isNotInTheCart = true;
+                }
+            System.out.println(item.getProductCounter());
+        }
+        if (isNotInTheCart) {
+                shoppingCart.add(orderedItem);
+            }
+        }
+        System.out.println(shoppingCart.cartItems);
+        resp.sendRedirect("product/index.html");
 
     }
 }
