@@ -60,3 +60,52 @@
 {
     margin: 0 0 11px;
 }
+
+.middle
+{
+    margin-bottom: 80px;
+}
+
+.card-body
+{
+    background-color: #fff400;
+}
+
+.jumbotron
+{
+    background-color: #f9a01b;
+    padding-top: 24px;
+    padding-bottom: 24px;
+}
+
+body
+{
+    background-image: url('/static/img/background.png');
+    background-repeat: repeat;
+}
+
+.card-top
+{
+    background-color: #fff400;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    text-align: center;
+
+}
+
+.footer
+{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.filter-title
+{
+    text-align: center;
+}
+
+.logo
+{
+    width: 50%;
+}
