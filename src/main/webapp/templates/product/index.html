@@ -30,34 +30,36 @@
 
 <body>
 
-<div class="jumbotron text-center">
-    <h1>Codecool Shop</h1>
-</div>
+    <div class="jumbotron text-center">
+        <img class="logo" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/codecool_logo.png'" width="600" alt="" />
+    </div>
 
+<div class="middle">
 <div class="container">
-    <div class="card">
-        <strong th:text="${supplier != null} ? ${supplier.name}:''">Supplier Title</strong>
-        <strong th:text="${category != null} ? ${category.name}: ''">Category Title</strong>
-
+    <div class="card mt-2 mb-2 filter-title">
+        <h4 class="card-title" th:text="${supplier != null} ? ${supplier.name}:''">Supplier Title</h4>
+        <h4 class="card-title" th:text="${category != null} ? ${category.name}: ''">Category Title</h4>
+    </div>
+    <div class="card mt-2 mb-2 card-top">
         <form method="get">
-        <select id="categoryFilter" name="categoryFilter">
+        <select id="categoryFilter" name="categoryFilter" class="btn btn-success">
             <option value="" disabled selected>Select category</option>
             <th:block th:each="cat : ${categories}">
                 <option  th:value="${cat.id}" th:text="${cat.name}">Category name</option>
             </th:block>
         </select>
-        <select id="supplierFilter" name="supplierFilter">
+        <select id="supplierFilter" name="supplierFilter" class="btn btn-success">
             <option value="" disabled selected>Select supplier</option>
             <th:block th:each="sup : ${suppliers}">
                 <option  th:value="${sup.id}" th:text="${sup.name}">Supplier name</option>
             </th:block>
         </select>
-            <input type="submit" value="submit">
+            <input type="submit" value="Submit" class="btn btn-success">
         </form>
     </div>
 
     <div id="products" class="row">
-        <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
+        <div class="col col-sm-12 col-md-6 col-lg-4 mt-2 mb-2" th:each="prod,iterStat : ${products}">
             <div class="card">
                 <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
                 <div class="card-header">
@@ -77,8 +79,11 @@
     </div>
 
 </div>
+</div>
 
+<div class="footer">
 <div th:replace="footer.html :: copy"></div>
+</div>
 
 </body>
 </html>
