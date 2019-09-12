@@ -109,3 +109,19 @@ body
 {
     width: 50%;
 }
+
+.product-image
+{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    max-height: 350px;
+    max-width: 350px;
+
+}
+
+.card-image
+{
+    width: 348px;
+    height: 348px;
+}
