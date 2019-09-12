@@ -120,8 +120,47 @@ body
 
 }
 
+.cart-image
+{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    max-height: 200px;
+    max-width: 200px;
+
+}
 .card-image
 {
     width: 348px;
     height: 348px;
+}
+
+.cart-item
+{
+    background-color: white;
+}
+
+.cart-button
+{
+    text-align: center;
+    font-size: x-large;
+    font-weight: bold;
+    width: 50px;
+    height: 50px;
+    padding: 5px;
+}
+
+.cart-margin
+{
+    margin: auto;
+    font-size: 30px;
+}
+
+.cart-button-2
+{
+    text-align: center;
+    font-weight: bold;
+    width: 300px;
+    height: 50px;
+    padding: 5px;
 }

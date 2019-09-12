@@ -33,25 +33,39 @@
 <div class="jumbotron text-center">
     <h1>Your shopping cart</h1>
 </div>
+
 <div class="container">
-<div class="item"  th:each="item,iterStat : ${cartItems}">
-    <div class="card">
-        <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${item.id} + '.jpg'" alt="" />
-        <div class="card-header">
-            <h4 class="card-title" th:text="${item.name}">Product name</h4>
-        </div>
-        <div class="card-body">
-            <div class="card-text">
-                <p class="lead" th:text="${item.getProductCounter()}">0 db</p>
+    <div class="row mt-2 mb-2 cart-item" th:each="item,iterStat : ${cartItems}">
+            <div class="col-2 sm-3">
+                <img class="cart-image" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${item.id} + '.jpg'" alt="" />
             </div>
+            <div class="col-5 lg-4 cart-margin">
+                <p class="card-title" th:text="${item.name}">Product name</p>
+            </div>
+            <div class="col-2 sm-1 cart-margin">
+                <p th:text="${item.getProductCounter()  +  ' pcs'}">0 db</p>
+            </div>
+            <div class="col-1 sm-1 cart-margin">
+                <button class="btn btn-success cart-button" type="submit" name="add" th:value="${item.id}">+</button><br>
+                <button class="btn btn-success cart-button" type="submit" name="subtract" th:value="${item.id}">-</button>
+            </div>
+            <div class="col-2 sm-3 cart-margin">
+                <p th:text="${item.getProductCounter()}*${item.defaultPrice}  +  ' '  +  ${item.defaultCurrency}">0 db</p>
+            </div>
+    </div>
+    <div class="row mt-2 mb-2">
+        <div class="col-7 ">
+            <a href="/index.html"><button class="btn btn-success cart-button-2" name="back to store" >Go back to store!</button></a>
+            <a href="/index.html"><button class="btn btn-success cart-button-2" name="back to store" >Checkout</button></a>
         </div>
+        <div class="col-2 cart-margin"></div>
+        <div class="col-1"></div>
+        <div class="col-2 cart-margin"></div>
     </div>
 </div>
 
-
-</div>
-<a href="/index.html"><button name="cartButton" >Go back to store!</button></a>
+<div class="footer">
 <div th:replace="footer.html :: copy"></div>
-
+</div>
 </body>
 </html>
