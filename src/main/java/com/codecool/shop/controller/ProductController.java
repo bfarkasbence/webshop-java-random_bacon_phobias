@@ -7,6 +7,9 @@ import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.dao.implementation.ShoppingCartDaoMem;
+import com.codecool.shop.model.OrderedItem;
+import com.codecool.shop.model.Product;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 
@@ -29,6 +32,7 @@ public class ProductController extends HttpServlet {
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+        ShoppingCartDaoMem shoppingCart = ShoppingCartDaoMem.getInstance();
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
@@ -53,6 +57,39 @@ public class ProductController extends HttpServlet {
         }
         else {
             return 0;
+        }
+    }
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ShoppingCartDaoMem shoppingCart = ShoppingCartDaoMem.getInstance();
+        ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
+        int productId = Integer.parseInt(req.getParameter("add"));
+        Product product = productDaoMem.find(productId);
+        OrderedItem orderedItem = new OrderedItem(product.getName(),product.getDefaultPrice(),product.getDefaultCurrency().toString(),product.getDescription(),product.getProductCategory(),product.getSupplier());
+        orderedItem.setId(productId);
+        addToCart(shoppingCart, orderedItem);
+        resp.sendRedirect("product/index.html");
+
+    }
+
+    private void addToCart(ShoppingCartDaoMem shoppingCart, OrderedItem orderedItem) {
+        boolean isNotInTheCart = false;
+        if(shoppingCart.cartItems.isEmpty()){
+            shoppingCart.add(orderedItem);
+        }
+        else{
+        for (OrderedItem item:shoppingCart.cartItems) {
+            if (item.getId() == orderedItem.getId()) {
+                item.increaseQuantity();
+                break;
+            }
+            else{
+                    isNotInTheCart = true;
+                }
+        }
+        if (isNotInTheCart) {
+                shoppingCart.add(orderedItem);
+            }
         }
     }
 }
