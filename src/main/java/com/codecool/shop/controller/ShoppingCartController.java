@@ -26,7 +26,7 @@ public class ShoppingCartController extends HttpServlet {
         ShoppingCartDaoMem shoppingCart = ShoppingCartDaoMem.getInstance();
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-
+        context.setVariable("cartItems",shoppingCart.cartItems);
         engine.process("shoppingCart.html", context, resp.getWriter());
     }
 

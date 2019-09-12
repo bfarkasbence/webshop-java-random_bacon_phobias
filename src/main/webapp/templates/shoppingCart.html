@@ -5,7 +5,7 @@
     <meta name="author" content="Codecool" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <title>Cart</title>
+    <title>Codecool Shop</title>
 
     <!-- Bootstrap components -->
     <!-- Latest compiled and minified Jquery -->
@@ -33,13 +33,24 @@
 <div class="jumbotron text-center">
     <h1>Your shopping cart</h1>
 </div>
-
 <div class="container">
-
+<div class="item"  th:each="item,iterStat : ${cartItems}">
+    <div class="card">
+        <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${item.id} + '.jpg'" alt="" />
+        <div class="card-header">
+            <h4 class="card-title" th:text="${item.name}">Product name</h4>
+        </div>
+        <div class="card-body">
+            <div class="card-text">
+                <p class="lead" th:text="${item.getProductCounter()}">0 db</p>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 </div>
-
+<a href="/index.html"><button name="cartButton" >Go back to store!</button></a>
 <div th:replace="footer.html :: copy"></div>
 
 </body>

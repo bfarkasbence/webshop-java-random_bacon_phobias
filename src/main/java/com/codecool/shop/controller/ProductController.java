@@ -42,6 +42,12 @@ public class ProductController extends HttpServlet {
         Product product = productDaoMem.find(productId);
         OrderedItem orderedItem = new OrderedItem(product.getName(),product.getDefaultPrice(),product.getDefaultCurrency().toString(),product.getDescription(),product.getProductCategory(),product.getSupplier());
         orderedItem.setId(productId);
+        addToCart(shoppingCart, orderedItem);
+        resp.sendRedirect("product/index.html");
+
+    }
+
+    private void addToCart(ShoppingCartDaoMem shoppingCart, OrderedItem orderedItem) {
         boolean isNotInTheCart = false;
         if(shoppingCart.cartItems.isEmpty()){
             shoppingCart.add(orderedItem);
@@ -55,14 +61,10 @@ public class ProductController extends HttpServlet {
             else{
                     isNotInTheCart = true;
                 }
-            System.out.println(item.getProductCounter());
         }
         if (isNotInTheCart) {
                 shoppingCart.add(orderedItem);
             }
         }
-        System.out.println(shoppingCart.cartItems);
-        resp.sendRedirect("product/index.html");
-
     }
 }
