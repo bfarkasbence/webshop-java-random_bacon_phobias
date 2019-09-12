@@ -48,7 +48,7 @@ public class ProductController extends HttpServlet {
     }
 
     private void addToCart(ShoppingCartDaoMem shoppingCart, OrderedItem orderedItem) {
-        boolean isNotInTheCart = false;
+        int isNotInTheCart = 0;
         if(shoppingCart.cartItems.isEmpty()){
             shoppingCart.add(orderedItem);
         }
@@ -59,10 +59,10 @@ public class ProductController extends HttpServlet {
                 break;
             }
             else{
-                    isNotInTheCart = true;
+                    isNotInTheCart++;
                 }
         }
-        if (isNotInTheCart) {
+        if (isNotInTheCart == shoppingCart.cartItems.size()) {
                 shoppingCart.add(orderedItem);
             }
         }
