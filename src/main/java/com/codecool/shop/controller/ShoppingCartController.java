@@ -60,7 +60,7 @@ public class ShoppingCartController extends HttpServlet {
     private void subtractItem (ShoppingCartDaoMem shoppingCart, int productId){
         for (OrderedItem item:shoppingCart.cartItems) {
             if(item.getId() == productId) {
-                if (item.getProductCounter()>1){
+                if (item.getProductCounter()>1  ){
                     item.decreaseQuantity();
                     break;
                 }
