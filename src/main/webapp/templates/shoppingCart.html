@@ -34,6 +34,7 @@
     <h1>Your shopping cart</h1>
 </div>
 
+<div class="middle">
 <div class="container">
     <div class="row mt-2 mb-2 cart-item" th:each="item,iterStat : ${cartItems}">
             <div class="col-2 sm-3">
@@ -46,8 +47,10 @@
                 <p th:text="${item.getProductCounter()  +  ' pcs'}">0 db</p>
             </div>
             <div class="col-1 sm-1 cart-margin">
-                <button class="btn btn-success cart-button" type="submit" name="add" th:value="${item.id}">+</button><br>
-                <button class="btn btn-success cart-button" type="submit" name="subtract" th:value="${item.id}">-</button>
+                <form action="/shoppingCart" method="post">
+                    <button class="btn btn-success cart-button" type="submit" name="add" th:value="${item.id}">+</button>
+                    <button class="btn btn-success cart-button" type="submit" name="subtract" th:value="${item.id}">-</button>
+                </form>
             </div>
             <div class="col-2 sm-3 cart-margin">
                 <p th:text="${item.getProductCounter()}*${item.defaultPrice}  +  ' '  +  ${item.defaultCurrency}">0 db</p>
@@ -62,6 +65,7 @@
         <div class="col-1"></div>
         <div class="col-2 cart-margin"></div>
     </div>
+</div>
 </div>
 
 <div class="footer">

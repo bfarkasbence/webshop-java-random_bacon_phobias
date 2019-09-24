@@ -68,7 +68,7 @@ public class ProductController extends HttpServlet {
         OrderedItem orderedItem = new OrderedItem(product.getName(),product.getDefaultPrice(),product.getDefaultCurrency().toString(),product.getDescription(),product.getProductCategory(),product.getSupplier());
         orderedItem.setId(productId);
         addToCart(shoppingCart, orderedItem);
-        resp.sendRedirect("product/index.html");
+        resp.sendRedirect("/");
 
     }
 
