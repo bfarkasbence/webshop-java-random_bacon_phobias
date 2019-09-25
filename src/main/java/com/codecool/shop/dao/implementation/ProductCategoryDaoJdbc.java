@@ -29,14 +29,15 @@ public class ProductCategoryDaoJdbc extends DaoJdbc implements ProductCategoryDa
              PreparedStatement statement = connection.prepareStatement(sqlStatement)) {
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
-            result.next();
+            if (result.next()){
             String name = result.getString("name");
             String department = result.getString("department");
             String description = result.getString("description");
             Integer categoryId = result.getInt("id");
             ProductCategory category = new ProductCategory(name, department, description);
             category.setId(categoryId);
-            return category;
+            System.out.println(category);
+            return category;}
 
 
         } catch (SQLException e) {
@@ -47,7 +48,14 @@ public class ProductCategoryDaoJdbc extends DaoJdbc implements ProductCategoryDa
 
     @Override
     public void remove(int id) {
-
+    String sqlStatement = "DELETE FROM category WHERE id = ?; ";
+    try(Connection connection = DriverManager.getConnection(DB_URL,USERNAME,PASSWORD);
+        PreparedStatement statement = connection.prepareStatement(sqlStatement)){
+        statement.setInt(1,id);
+        statement.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
     }
 
     @Override
@@ -56,9 +64,10 @@ public class ProductCategoryDaoJdbc extends DaoJdbc implements ProductCategoryDa
     }
 
     public static void main(String[] args) {
-        ProductCategory lager = new ProductCategory("Lager7", "Beer", "asd");
+        ProductCategory lager = new ProductCategory("Lager1", "Beer", "asd");
         ProductCategoryDao category = new ProductCategoryDaoJdbc();
-//        category.add(lager);
-        category.find(1);
+/*        category.add(lager);
+        category.remove(4);
+        category.find(5);*/
     }
 }
