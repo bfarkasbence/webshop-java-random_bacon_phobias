@@ -53,17 +53,20 @@
                 </form>
             </div>
             <div class="col-2 sm-3 cart-margin">
-                <p th:text="${item.getProductCounter()}*${item.defaultPrice}  +  ' '  +  ${item.defaultCurrency}">0 db</p>
+                <p th:text="${item.getProductCounter()}*${item.defaultPrice}  +  ' '  +  ${item.defaultCurrency}">0 currency</p>
             </div>
     </div>
     <div class="row mt-2 mb-2">
-        <div class="col-7 ">
+        <div class="col-7">
             <a href="/index.html"><button class="btn btn-success cart-button-2" name="back to store" >Go back to store!</button></a>
-            <a href="/index.html"><button class="btn btn-success cart-button-2" name="back to store" >Checkout</button></a>
+            <a href="/checkout.html"><button class="btn btn-success cart-button-2" name="checkout" >Checkout</button></a>
         </div>
         <div class="col-2 cart-margin"></div>
-        <div class="col-1"></div>
-        <div class="col-2 cart-margin"></div>
+        <div class="col-3 cart-margin">
+            <div class="cart-item text-center">
+                <p th:text="1*${totalPrice} + ' HUF'">total price</p>
+            </div>
+        </div>
     </div>
 </div>
 </div>

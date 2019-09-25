@@ -21,4 +21,5 @@ public class OrderedItem extends Product {
     public int getProductCounter() {
         return productCounter;
     }
+
 }

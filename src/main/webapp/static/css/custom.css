@@ -138,6 +138,7 @@ body
 .cart-item
 {
     background-color: white;
+    border-radius: 10px;
 }
 
 .cart-button
