@@ -22,6 +22,8 @@ public class ReviewController extends HttpServlet {
         CustomerDataDaoMem customerDataDaoMem = CustomerDataDaoMem.getInstance();
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
+        context.setVariable("cartItems",shoppingCart.cartItems);
+        context.setVariable("totalPrice",shoppingCart.getTotalPrice());
         context.setVariable("fullName", customerDataDaoMem.get("fullName"));
         context.setVariable("email", customerDataDaoMem.get("email"));
         context.setVariable("phoneNumber", customerDataDaoMem.get("phoneNumber"));

@@ -57,12 +57,33 @@
                 <td th:text="${shippingAddress}"></td>
             <tr>
             <tr>
-            <td><a href="/index" ><button>Go to homepage!</button></a></td>
-            <td><a href="/checkout" ><button>Edit shipping info!</button></a></td>
-            <td><a href="/shoppingCart" ><button>Edit your cart!</button></a></td>
-            <td><button >Pay!</button></td>
+            <td><a href="/index" ><button class="btn btn-success">Go to homepage!</button></a></td>
+            <td><a href="/checkout" ><button class="btn btn-success">Edit shipping info!</button></a></td>
+            </tr>
+            <tr>
+                <td><a href="/shoppingCart" ><button class="btn btn-success">Edit your cart!</button></a></td>
+                <td><button class="btn btn-success">Pay!</button></td>
             </tr>
         </table>
+        <div class="row mt-2 mb-2 cart-item" th:each="item,iterStat : ${cartItems}">
+            <div class="col-2 sm-3">
+                <img class="cart-image" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${item.id} + '.jpg'" alt="" />
+            </div>
+            <div class="col-5 lg-4 cart-margin">
+                <p class="card-title" th:text="${item.name}">Product name</p>
+            </div>
+            <div class="col-2 sm-1 cart-margin">
+                <p th:text="${item.getProductCounter()  +  ' pcs'}">0 db</p>
+            </div>
+            <div class="col-2 sm-3 cart-margin">
+                <p th:text="${item.getProductCounter()}*${item.defaultPrice}  +  ' '  +  ${item.defaultCurrency}">0 currency</p>
+            </div>
+        </div>
+        <div class="col-3 cart-margin">
+            <div class="cart-item text-center">
+                <p th:text="'Total:' + 1*${totalPrice} + ' HUF'">total price</p>
+            </div>
+        </div>
     </div>
 </body>
 </html>

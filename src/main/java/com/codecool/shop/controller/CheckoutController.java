@@ -33,7 +33,7 @@ public class CheckoutController extends HttpServlet {
         customerDataDaoMem.put("phoneNumber", req.getParameter("phoneNumber"));
         customerDataDaoMem.put("billingAddress", req.getParameter("billingAddress"));
         customerDataDaoMem.put("shippingAddress", req.getParameter("shippingAddress"));
-        resp.sendRedirect("/index");
+        resp.sendRedirect("/review");
 
     }
 }
