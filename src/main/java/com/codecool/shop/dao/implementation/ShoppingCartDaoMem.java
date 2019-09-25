@@ -12,7 +12,7 @@ public class ShoppingCartDaoMem implements ShoppingCartDao {
     public List<OrderedItem> cartItems = new ArrayList<>();
     private static ShoppingCartDaoMem instance = null;
 
-    private ShoppingCartDaoMem(){
+    private ShoppingCartDaoMem() {
     }
 
     public static ShoppingCartDaoMem getInstance() {
@@ -43,10 +43,10 @@ public class ShoppingCartDaoMem implements ShoppingCartDao {
     }
 
     @Override
-    public float getTotalPrice(){
+    public float getTotalPrice() {
         float totalPrice = 0;
         for (OrderedItem item : cartItems) {
-            totalPrice += (item.getDefaultPrice()*item.getProductCounter());
+            totalPrice += (item.getDefaultPrice() * item.getProductCounter());
         }
         return totalPrice;
     }

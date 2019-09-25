@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class CustomerDataDaoMem implements CustomerDataDao {
 
-    public Map<String,String> CustomerData = new HashMap<String, String>();
+    public Map<String, String> CustomerData = new HashMap<String, String>();
     private static CustomerDataDaoMem instance = null;
 
     public static CustomerDataDaoMem getInstance() {
@@ -19,7 +19,7 @@ public class CustomerDataDaoMem implements CustomerDataDao {
 
     @Override
     public void put(String key, String value) {
-        CustomerData.put(key,value);
+        CustomerData.put(key, value);
     }
 
     @Override
@@ -29,11 +29,11 @@ public class CustomerDataDaoMem implements CustomerDataDao {
 
     @Override
     public void replace(String key, String value) {
-        CustomerData.replace(key,value);
+        CustomerData.replace(key, value);
     }
 
     @Override
     public Object get(Object key) {
-       return CustomerData.get(key);
+        return CustomerData.get(key);
     }
 }

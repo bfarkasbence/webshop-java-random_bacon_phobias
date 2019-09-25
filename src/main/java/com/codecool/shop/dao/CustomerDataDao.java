@@ -8,10 +8,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public interface CustomerDataDao{
+public interface CustomerDataDao {
 
-    void put(String key,String value);
+    void put(String key, String value);
+
     void remove(String key);
+
     void replace(String key, String value);
+
     Object get(Object key);
 }

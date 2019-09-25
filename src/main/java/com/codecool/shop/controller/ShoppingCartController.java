@@ -29,28 +29,27 @@ public class ShoppingCartController extends HttpServlet {
         ShoppingCartDaoMem shoppingCart = ShoppingCartDaoMem.getInstance();
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        context.setVariable("cartItems",shoppingCart.cartItems);
+        context.setVariable("cartItems", shoppingCart.cartItems);
         context.setVariable("totalPrice", shoppingCart.getTotalPrice());
         engine.process("shoppingCart.html", context, resp.getWriter());
     }
 
     @Override
-    protected void doPost (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ShoppingCartDaoMem shoppingCart = ShoppingCartDaoMem.getInstance();
         int productId;
-        if (req.getParameter("subtract") != null){
+        if (req.getParameter("subtract") != null) {
             productId = Integer.parseInt(req.getParameter("subtract"));
             subtractItem(shoppingCart, productId);
-        }
-        else {
+        } else {
             productId = Integer.parseInt(req.getParameter("add"));
             addItem(shoppingCart, productId);
         }
         resp.sendRedirect("/shoppingCart");
     }
 
-    private void addItem (ShoppingCartDaoMem shoppingCart, int productId){
-        for (OrderedItem item:shoppingCart.cartItems) {
+    private void addItem(ShoppingCartDaoMem shoppingCart, int productId) {
+        for (OrderedItem item : shoppingCart.cartItems) {
             if (item.getId() == productId) {
                 item.increaseQuantity();
                 break;
@@ -58,14 +57,13 @@ public class ShoppingCartController extends HttpServlet {
         }
     }
 
-    private void subtractItem (ShoppingCartDaoMem shoppingCart, int productId){
-        for (OrderedItem item:shoppingCart.cartItems) {
-            if(item.getId() == productId) {
-                if (item.getProductCounter()>1  ){
+    private void subtractItem(ShoppingCartDaoMem shoppingCart, int productId) {
+        for (OrderedItem item : shoppingCart.cartItems) {
+            if (item.getId() == productId) {
+                if (item.getProductCounter() > 1) {
                     item.decreaseQuantity();
                     break;
-                }
-                else {
+                } else {
                     shoppingCart.cartItems.remove(item);
                     break;
                 }
