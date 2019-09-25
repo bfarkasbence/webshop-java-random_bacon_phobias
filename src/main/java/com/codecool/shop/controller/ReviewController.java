@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/checkout")
-public class CheckoutController extends HttpServlet {
+@WebServlet("/review")
+public class ReviewController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -22,18 +22,12 @@ public class CheckoutController extends HttpServlet {
         CustomerDataDaoMem customerDataDaoMem = CustomerDataDaoMem.getInstance();
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        engine.process("checkout.html", context, resp.getWriter());
+        context.setVariable("fullName", customerDataDaoMem.get("fullName"));
+        context.setVariable("email", customerDataDaoMem.get("email"));
+        context.setVariable("phoneNumber", customerDataDaoMem.get("phoneNumber"));
+        context.setVariable("billingAddress", customerDataDaoMem.get("billingAddress"));
+        context.setVariable("shippingAddress", customerDataDaoMem.get("shippingAddress"));
+        engine.process("review.html", context, resp.getWriter());
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CustomerDataDaoMem customerDataDaoMem = CustomerDataDaoMem.getInstance();
-        customerDataDaoMem.put("fullName", req.getParameter("name"));
-        customerDataDaoMem.put("email", req.getParameter("email"));
-        customerDataDaoMem.put("phoneNumber", req.getParameter("phoneNumber"));
-        customerDataDaoMem.put("billingAddress", req.getParameter("billingAddress"));
-        customerDataDaoMem.put("shippingAddress", req.getParameter("shippingAddress"));
-        resp.sendRedirect("/index");
-
-    }
 }
