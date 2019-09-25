@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta name="author" content="Codecool"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-
+    <link rel="shortcut icon" href="/static/img/beerIcon.ico"/>
     <title>Checkout</title>
 
     <!-- Bootstrap components -->
@@ -35,7 +35,7 @@
 </div>
 <div class="container">
     <div class="card mt-2 mb-2 card-top">
-        <form>
+        <form action="/checkout" method="post">
             <div class="form-group">
                 <label for="fname">Full name</label>
                 <input type="text" name="name" class="form-control" id="fname" placeholder="Full Name">
@@ -46,7 +46,7 @@
             </div>
             <div class="form-group">
                 <label for="pNumber">Phone number</label>
-                <input type="number" name="phoneNumber" class="form-control" id="pNumber" placeholder="Password">
+                <input type="number" name="phoneNumber" class="form-control" id="pNumber" placeholder="Phone number">
             </div>
             <div class="form-group">
                 <label for="bAddress">Billing Address</label>
@@ -57,7 +57,7 @@
                 <input type="text" name="shippingAddress" class="form-control" id="sAddress" placeholder="1234 Main St">
             </div>
             <div class="form-row text-center">
-                <button action="/checkout" class="btn btn-primary" formmethod="post" type="submit">Order!</button>
+                <button class="btn btn-primary" type="submit">Order!</button>
             </div>
         </form>
     </div>

@@ -50,44 +50,41 @@ public class ProductController extends HttpServlet {
         engine.process("product/index.html", context, resp.getWriter());
     }
 
-    protected int getFilterParameter (HttpServletRequest req, String filterName) {
-        if (req.getParameter(filterName)!=null)
-        {
+    protected int getFilterParameter(HttpServletRequest req, String filterName) {
+        if (req.getParameter(filterName) != null) {
             return Integer.parseInt(req.getParameter(filterName));
-        }
-        else {
+        } else {
             return 0;
         }
     }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ShoppingCartDaoMem shoppingCart = ShoppingCartDaoMem.getInstance();
         ProductDaoMem productDaoMem = ProductDaoMem.getInstance();
         int productId = Integer.parseInt(req.getParameter("add"));
         Product product = productDaoMem.find(productId);
-        OrderedItem orderedItem = new OrderedItem(product.getName(),product.getDefaultPrice(),product.getDefaultCurrency().toString(),product.getDescription(),product.getProductCategory(),product.getSupplier());
+        OrderedItem orderedItem = new OrderedItem(product.getName(), product.getDefaultPrice(), product.getDefaultCurrency().toString(), product.getDescription(), product.getProductCategory(), product.getSupplier());
         orderedItem.setId(productId);
         addToCart(shoppingCart, orderedItem);
-        resp.sendRedirect("product/index.html");
+        resp.sendRedirect("/");
 
     }
 
     private void addToCart(ShoppingCartDaoMem shoppingCart, OrderedItem orderedItem) {
         int isNotInTheCart = 0;
-        if(shoppingCart.cartItems.isEmpty()){
+        if (shoppingCart.cartItems.isEmpty()) {
             shoppingCart.add(orderedItem);
-        }
-        else{
-        for (OrderedItem item:shoppingCart.cartItems) {
-            if (item.getId() == orderedItem.getId()) {
-                item.increaseQuantity();
-                break;
-            }
-            else{
+        } else {
+            for (OrderedItem item : shoppingCart.cartItems) {
+                if (item.getId() == orderedItem.getId()) {
+                    item.increaseQuantity();
+                    break;
+                } else {
                     isNotInTheCart++;
                 }
-        }
-        if (isNotInTheCart == shoppingCart.cartItems.size()) {
+            }
+            if (isNotInTheCart == shoppingCart.cartItems.size()) {
                 shoppingCart.add(orderedItem);
             }
         }

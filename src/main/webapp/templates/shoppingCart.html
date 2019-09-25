@@ -1,10 +1,10 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8" />
-    <meta name="author" content="Codecool" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
+    <meta charset="utf-8"/>
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <link rel="shortcut icon" href="/static/img/beerIcon.ico"/>
     <title>Codecool Shop</title>
 
     <!-- Bootstrap components -->
@@ -14,18 +14,20 @@
 
     <!--Latest compiled and minified Popper -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+            crossorigin="anonymous"></script>
 
     <!-- Latest compiled and minified CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <!-- End of Bootstrap components -->
 
-    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
 </head>
 
 <body>
@@ -34,10 +36,12 @@
     <h1>Your shopping cart</h1>
 </div>
 
-<div class="container">
-    <div class="row mt-2 mb-2 cart-item" th:each="item,iterStat : ${cartItems}">
+<div class="middle">
+    <div class="container">
+        <div class="row mt-2 mb-2 cart-item" th:each="item,iterStat : ${cartItems}">
             <div class="col-2 sm-3">
-                <img class="cart-image" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${item.id} + '.jpg'" alt="" />
+                <img class="cart-image" src="http://placehold.it/400x250/000/fff"
+                     th:attr="src='/static/img/product_' + ${item.id} + '.jpg'" alt=""/>
             </div>
             <div class="col-5 lg-4 cart-margin">
                 <p class="card-title" th:text="${item.name}">Product name</p>
@@ -46,26 +50,38 @@
                 <p th:text="${item.getProductCounter()  +  ' pcs'}">0 db</p>
             </div>
             <div class="col-1 sm-1 cart-margin">
-                <button class="btn btn-success cart-button" type="submit" name="add" th:value="${item.id}">+</button><br>
-                <button class="btn btn-success cart-button" type="submit" name="subtract" th:value="${item.id}">-</button>
+                <form action="/shoppingCart" method="post">
+                    <button class="btn btn-success cart-button" type="submit" name="add" th:value="${item.id}">+
+                    </button>
+                    <button class="btn btn-success cart-button" type="submit" name="subtract" th:value="${item.id}">-
+                    </button>
+                </form>
             </div>
             <div class="col-2 sm-3 cart-margin">
-                <p th:text="${item.getProductCounter()}*${item.defaultPrice}  +  ' '  +  ${item.defaultCurrency}">0 db</p>
+                <p th:text="${item.getProductCounter()}*${item.defaultPrice}  +  ' '  +  ${item.defaultCurrency}">0
+                    currency</p>
             </div>
-    </div>
-    <div class="row mt-2 mb-2">
-        <div class="col-7 ">
-            <a href="/index.html"><button class="btn btn-success cart-button-2" name="back to store" >Go back to store!</button></a>
-            <a href="/index.html"><button class="btn btn-success cart-button-2" name="back to store" >Checkout</button></a>
         </div>
-        <div class="col-2 cart-margin"></div>
-        <div class="col-1"></div>
-        <div class="col-2 cart-margin"></div>
+        <div class="row mt-2 mb-2">
+            <div class="col-7">
+                <a href="/index.html">
+                    <button class="btn btn-success cart-button-2" name="back to store">Go back to store!</button>
+                </a>
+                <a href="/checkout">
+                    <button class="btn btn-success cart-button-2" name="checkout">Checkout</button>
+                </a>
+            </div>
+            <div class="col-2 cart-margin"></div>
+            <div class="col-3 cart-margin">
+                <div class="cart-item text-center">
+                    <p th:text="1*${totalPrice} + ' HUF'">total price</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
 <div class="footer">
-<div th:replace="footer.html :: copy"></div>
+    <div th:replace="footer.html :: copy"></div>
 </div>
 </body>
 </html>

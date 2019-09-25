@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta name="author" content="Codecool"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-
+    <link rel="shortcut icon" href="/static/img/beerIcon.ico"/>
     <title>Checkout</title>
 
     <!-- Bootstrap components -->
@@ -57,12 +57,66 @@
                 <td th:text="${shippingAddress}"></td>
             <tr>
             <tr>
-            <td><a href="/index" ><button>Go to homepage!</button></a></td>
-            <td><a href="/checkout" ><button>Edit shipping info!</button></a></td>
-            <td><a href="/shoppingCart" ><button>Edit your cart!</button></a></td>
-            <td><button >Pay!</button></td>
+                <td><a href="/index">
+                    <button class="btn btn-success">Go to homepage!</button>
+                </a></td>
+                <td><a href="/checkout">
+                    <button class="btn btn-success">Edit shipping info!</button>
+                </a></td>
+            </tr>
+            <tr>
+                <td><a href="/shoppingCart">
+                    <button class="btn btn-success">Edit your cart!</button>
+                </a></td>
+                <td>
+                    <button class="btn btn-success" onClick="pay();">Pay</button>
+                </td>
             </tr>
         </table>
+        <div class="row mt-2 mb-2 cart-item" th:each="item,iterStat : ${cartItems}">
+            <div class="col-2 sm-3">
+                <img class="cart-image" src="http://placehold.it/400x250/000/fff"
+                     th:attr="src='/static/img/product_' + ${item.id} + '.jpg'" alt=""/>
+            </div>
+            <div class="col-5 lg-4 cart-margin">
+                <p class="card-title" th:text="${item.name}">Product name</p>
+            </div>
+            <div class="col-2 sm-1 cart-margin">
+                <p th:text="${item.getProductCounter()  +  ' pcs'}">0 db</p>
+            </div>
+            <div class="col-2 sm-3 cart-margin">
+                <p th:text="${item.getProductCounter()}*${item.defaultPrice}  +  ' '  +  ${item.defaultCurrency}">0
+                    currency</p>
+            </div>
+        </div>
+        <div class="col-3 cart-margin">
+            <div class="cart-item text-center">
+                <p th:text="'Total:' + 1*${totalPrice} + ' HUF'">total price</p>
+            </div>
+        </div>
     </div>
 </body>
+<script src="https://sdk.paylike.io/3.js"></script>
+<script th:inline="javascript">
+    var paylike = Paylike('aba0a705-be4a-4a36-80da-f4b5f18c9657');
+    var amount = /*[[${totalPrice}*100]]*/ 0;
+    var currency = 'HUF';
+
+    function pay(){
+        paylike.popup({
+            amount: amount,
+            currency: currency,
+        }, function( err, res ){
+            if (err)
+                return console.warn(err);
+
+            var url = '/thank-you?transactionId=' + res.transaction.id;
+
+            location.href = url;
+        });
+
+    }
+
+
+</script>
 </html>

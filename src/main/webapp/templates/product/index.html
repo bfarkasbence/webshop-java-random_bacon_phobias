@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="author" content="Codecool" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
+    <link rel="shortcut icon" href="/static/img/beerIcon.ico"/>
     <title>Codecool Shop</title>
 
     <!-- Bootstrap components -->
@@ -30,10 +30,12 @@
 
 <body>
 
-<div class="jumbotron text-center">
-    <img class="logo" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/codecool_logo.png'"
-         width="600" alt=""/>
-</div>
+    <div class="jumbotron text-center">
+        <img class="logo" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/codecool_logo.png'" width="600" alt="" />
+    </div>
+    <div class="to-cart">
+        <a href="/shoppingCart"><button name="cartButton" class="btn btn-success">Go to cart!</button></a>
+    </div>
 
 <div class="middle">
 <div class="container">
@@ -82,9 +84,7 @@
             </div>
         </div>
     </div>
-
 </div>
-    <a href="/shoppingCart"><button name="cartButton" >Go to cart!</button></a>
 </div>
 
 <div class="footer">
