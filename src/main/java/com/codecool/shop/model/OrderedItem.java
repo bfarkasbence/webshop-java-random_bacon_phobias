@@ -14,7 +14,12 @@ public class OrderedItem extends Product {
         productCounter++;
     }
 
+    public void decreaseQuantity(){
+        productCounter--;
+    }
+
     public int getProductCounter() {
         return productCounter;
     }
+
 }

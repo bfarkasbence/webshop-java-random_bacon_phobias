@@ -41,4 +41,13 @@ public class ShoppingCartDaoMem implements ShoppingCartDao {
     public List<OrderedItem> getAll() {
         return cartItems;
     }
+
+    @Override
+    public float getTotalPrice(){
+        float totalPrice = 0;
+        for (OrderedItem item : cartItems) {
+            totalPrice += (item.getDefaultPrice()*item.getProductCounter());
+        }
+        return totalPrice;
+    }
 }
