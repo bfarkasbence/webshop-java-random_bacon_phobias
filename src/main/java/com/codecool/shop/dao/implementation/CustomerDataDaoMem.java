@@ -36,4 +36,9 @@ public class CustomerDataDaoMem implements CustomerDataDao {
     public Object get(Object key) {
        return CustomerData.get(key);
     }
+
+    @Override
+    public void clear(){
+        CustomerData.clear();
+    }
 }

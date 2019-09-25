@@ -41,4 +41,11 @@ public class ShoppingCartDaoMem implements ShoppingCartDao {
     public List<OrderedItem> getAll() {
         return cartItems;
     }
+
+    @Override
+    public void clear(){
+        for ( int i = 0; i  < cartItems.size(); i++){
+            cartItems.set(i, null);
+        }
+    }
 }

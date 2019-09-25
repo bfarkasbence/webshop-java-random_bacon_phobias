@@ -14,4 +14,5 @@ public interface CustomerDataDao{
     void remove(String key);
     void replace(String key, String value);
     Object get(Object key);
+    void clear();
 }
