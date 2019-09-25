@@ -1,11 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
     <meta name="author" content="Codecool"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <link rel="shortcut icon" href="/static/img/beerIcon.ico"/>
-    <title>Codecool Shop</title>
+    <title>Checkout</title>
 
     <!-- Bootstrap components -->
     <!-- Latest compiled and minified Jquery -->
@@ -29,15 +29,50 @@
 
     <link rel="stylesheet" type="text/css" href="/static/css/custom.css"/>
 </head>
-
 <body>
-
 <div class="jumbotron text-center">
-    <h1>Your shopping cart</h1>
+    <h1>Order review</h1>
 </div>
-
-<div class="middle">
-    <div class="container">
+<div class="container">
+    <div class="card mt-2 mb-2 card-top">
+        <table>
+            <tr>
+                <td>Full Name:</td>
+                <td th:text="${fullName}"></td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td th:text="${email}"></td>
+            </tr>
+            <tr>
+                <td>Phone Number</td>
+                <td th:text="${phoneNumber}"></td>
+            </tr>
+            <tr>
+                <td>Billing Address</td>
+                <td th:text="${billingAddress}"></td>
+            </tr>
+            <tr>
+                <td>Shipping Address</td>
+                <td th:text="${shippingAddress}"></td>
+            <tr>
+            <tr>
+                <td><a href="/index">
+                    <button class="btn btn-success">Go to homepage!</button>
+                </a></td>
+                <td><a href="/checkout">
+                    <button class="btn btn-success">Edit shipping info!</button>
+                </a></td>
+            </tr>
+            <tr>
+                <td><a href="/shoppingCart">
+                    <button class="btn btn-success">Edit your cart!</button>
+                </a></td>
+                <td>
+                    <button class="btn btn-success" onClick="pay();">Pay</button>
+                </td>
+            </tr>
+        </table>
         <div class="row mt-2 mb-2 cart-item" th:each="item,iterStat : ${cartItems}">
             <div class="col-2 sm-3">
                 <img class="cart-image" src="http://placehold.it/400x250/000/fff"
@@ -49,39 +84,39 @@
             <div class="col-2 sm-1 cart-margin">
                 <p th:text="${item.getProductCounter()  +  ' pcs'}">0 db</p>
             </div>
-            <div class="col-1 sm-1 cart-margin">
-                <form action="/shoppingCart" method="post">
-                    <button class="btn btn-success cart-button" type="submit" name="add" th:value="${item.id}">+
-                    </button>
-                    <button class="btn btn-success cart-button" type="submit" name="subtract" th:value="${item.id}">-
-                    </button>
-                </form>
-            </div>
             <div class="col-2 sm-3 cart-margin">
                 <p th:text="${item.getProductCounter()}*${item.defaultPrice}  +  ' '  +  ${item.defaultCurrency}">0
                     currency</p>
             </div>
         </div>
-        <div class="row mt-2 mb-2">
-            <div class="col-7">
-                <a href="/index.html">
-                    <button class="btn btn-success cart-button-2" name="back to store">Go back to store!</button>
-                </a>
-                <a href="/checkout">
-                    <button class="btn btn-success cart-button-2" name="checkout">Checkout</button>
-                </a>
-            </div>
-            <div class="col-2 cart-margin"></div>
-            <div class="col-3 cart-margin">
-                <div class="cart-item text-center">
-                    <p th:text="1*${totalPrice} + ' HUF'">total price</p>
-                </div>
+        <div class="col-3 cart-margin">
+            <div class="cart-item text-center">
+                <p th:text="'Total:' + 1*${totalPrice} + ' HUF'">total price</p>
             </div>
         </div>
     </div>
-</div>
-<div class="footer">
-    <div th:replace="footer.html :: copy"></div>
-</div>
 </body>
+<script src="https://sdk.paylike.io/3.js"></script>
+<script th:inline="javascript">
+    var paylike = Paylike('aba0a705-be4a-4a36-80da-f4b5f18c9657');
+    var amount = /*[[${totalPrice}*100]]*/ 0;
+    var currency = 'HUF';
+
+    function pay(){
+        paylike.popup({
+            amount: amount,
+            currency: currency,
+        }, function( err, res ){
+            if (err)
+                return console.warn(err);
+
+            var url = '/thank-you?transactionId=' + res.transaction.id;
+
+            location.href = url;
+        });
+
+    }
+
+
+</script>
 </html>
