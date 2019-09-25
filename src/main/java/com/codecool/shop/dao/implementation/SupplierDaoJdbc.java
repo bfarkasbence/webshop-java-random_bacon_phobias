@@ -33,7 +33,9 @@ public class SupplierDaoJdbc extends DaoJdbc implements SupplierDao {
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
             if (result.next()) {
-                Supplier resultSupplier = new Supplier(result.getString("name"), result.getString("description"));
+                Supplier resultSupplier = new Supplier(
+                        result.getString("name"),
+                        result.getString("description"));
                 resultSupplier.setId(result.getInt("id"));
                 System.out.println(resultSupplier);
                 return resultSupplier;
@@ -67,7 +69,9 @@ public class SupplierDaoJdbc extends DaoJdbc implements SupplierDao {
             PreparedStatement statement = connection.prepareStatement(sqlStatement)){
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()){
-                Supplier resultSupplier = new Supplier(resultSet.getString("name"),resultSet.getString("description"));
+                Supplier resultSupplier = new Supplier(
+                        resultSet.getString("name"),
+                        resultSet.getString("description"));
                 resultSupplier.setId(resultSet.getInt("id"));
                 result.add(resultSupplier);
             }
