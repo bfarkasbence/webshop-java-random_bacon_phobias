@@ -18,10 +18,11 @@ CREATE TABLE products
 (
     id               serial NOT NULL,
     name             varchar(255),
-    category         varchar(255),
+    category_id      int,
     default_price    float,
     default_currency varchar(10),
-    supplier         varchar(255)
+    supplier_id      int,
+    description      varchar(255)
 );
 DROP SEQUENCE IF EXISTS category_id_seq;
 CREATE TABLE category
@@ -41,10 +42,10 @@ CREATE TABLE supplier
 ALTER TABLE ONLY products
     ADD CONSTRAINT pk_product_key PRIMARY KEY (id);
 ALTER TABLE ONLY category
-    ADD CONSTRAINT pk_category_key PRIMARY KEY (name);
+    ADD CONSTRAINT pk_category_key PRIMARY KEY (id);
 ALTER TABLE ONLY supplier
-    ADD CONSTRAINT pk_supplier_name PRIMARY KEY (name);
+    ADD CONSTRAINT pk_supplier_name PRIMARY KEY (id);
 ALTER TABLE ONLY products
-    ADD CONSTRAINT fk_category_name FOREIGN KEY (category) REFERENCES category (name);
+    ADD CONSTRAINT fk_category_name FOREIGN KEY (category_id) REFERENCES category (id);
 ALTER TABLE ONLY products
-    Add CONSTRAINT fk_supplier_name FOREIGN KEY (supplier) REFERENCES supplier (name);
+    Add CONSTRAINT fk_supplier_name FOREIGN KEY (supplier_id) REFERENCES supplier (id);

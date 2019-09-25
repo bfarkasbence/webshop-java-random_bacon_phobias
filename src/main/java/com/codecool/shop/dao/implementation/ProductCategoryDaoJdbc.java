@@ -36,7 +36,6 @@ public class ProductCategoryDaoJdbc extends DaoJdbc implements ProductCategoryDa
                         result.getString("department"),
                         result.getString("description"));
                 category.setId(result.getInt("id"));
-                System.out.println(category);
                 return category;
             }
 
@@ -83,7 +82,7 @@ public class ProductCategoryDaoJdbc extends DaoJdbc implements ProductCategoryDa
     public static void main(String[] args) {
         ProductCategory lager = new ProductCategory("Lager2", "Beer", "asd");
         ProductCategoryDao category = new ProductCategoryDaoJdbc();
-//      category.add(lager);
+      category.add(lager);
 /*
         category.remove(4);
         category.find(5);

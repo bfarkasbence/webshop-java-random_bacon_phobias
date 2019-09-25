@@ -37,7 +37,6 @@ public class SupplierDaoJdbc extends DaoJdbc implements SupplierDao {
                         result.getString("name"),
                         result.getString("description"));
                 resultSupplier.setId(result.getInt("id"));
-                System.out.println(resultSupplier);
                 return resultSupplier;
             }
 
@@ -86,7 +85,7 @@ public class SupplierDaoJdbc extends DaoJdbc implements SupplierDao {
     public static void main(String[] args) {
         Supplier codecool = new Supplier("CodeCool13", "Beer");
         SupplierDaoJdbc supplier = new SupplierDaoJdbc();
-//        supplier.add(codecool);
+        supplier.add(codecool);
         supplier.find(5);
         supplier.find(3);
         supplier.getAll();
