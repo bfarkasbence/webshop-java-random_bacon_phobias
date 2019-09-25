@@ -71,6 +71,30 @@
 </div>
 </div>
 
+<button class="btn btn-success" onClick="pay();">Pay</button>
+
+<script src="https://sdk.paylike.io/3.js"></script>
+<script th:inline="javascript">
+    var paylike = Paylike('aba0a705-be4a-4a36-80da-f4b5f18c9657');
+    var amount = /*[[${totalPrice}*100]]*/ 0;
+    var currency = 'HUF';
+
+    function pay(){
+        paylike.popup({
+            amount: amount,
+            currency: currency,
+        }, function( err, res ){
+            if (err)
+                return console.warn(err);
+
+            var url = '/thank-you?transactionId=' + res.transaction.id;
+
+            location.href = url;
+        });
+
+    }
+</script>
+
 <div class="footer">
 <div th:replace="footer.html :: copy"></div>
 </div>
