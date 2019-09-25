@@ -18,21 +18,25 @@ public class CheckoutController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ShoppingCartDaoMem shoppingCart = ShoppingCartDaoMem.getInstance();
-        CustomerDataDaoMem customerDataDaoMem = CustomerDataDaoMem.getInstance();
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
+        CustomerDataDaoMem customerData = CustomerDataDaoMem.getInstance();
         WebContext context = new WebContext(req, resp, req.getServletContext());
+        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
+            context.setVariable("fullName", customerData.get("fullName"));
+            context.setVariable("email", customerData.get("email"));
+            context.setVariable("phoneNumber", customerData.get("phoneNumber"));
+            context.setVariable("billingAddress", customerData.get("billingAddress"));
+            context.setVariable("shippingAddress", customerData.get("shippingAddress"));
         engine.process("checkout.html", context, resp.getWriter());
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CustomerDataDaoMem customerDataDaoMem = CustomerDataDaoMem.getInstance();
-        customerDataDaoMem.put("fullName", req.getParameter("name"));
-        customerDataDaoMem.put("email", req.getParameter("email"));
-        customerDataDaoMem.put("phoneNumber", req.getParameter("phoneNumber"));
-        customerDataDaoMem.put("billingAddress", req.getParameter("billingAddress"));
-        customerDataDaoMem.put("shippingAddress", req.getParameter("shippingAddress"));
+        CustomerDataDaoMem customerData = CustomerDataDaoMem.getInstance();
+        customerData.put("fullName", req.getParameter("name"));
+        customerData.put("email", req.getParameter("email"));
+        customerData.put("phoneNumber", req.getParameter("phoneNumber"));
+        customerData.put("billingAddress", req.getParameter("billingAddress"));
+        customerData.put("shippingAddress", req.getParameter("shippingAddress"));
         resp.sendRedirect("/review");
 
     }
