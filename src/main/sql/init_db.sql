@@ -6,7 +6,7 @@ ALTER TABLE IF EXISTS ONLY public.supplier
     DROP CONSTRAINT IF EXISTS pk_supplier_name CASCADE;
 ALTER TABLE IF EXISTS ONLY public.customer
     DROP CONSTRAINT IF EXISTS pk_customer_id CASCADE;
-ALTER TABLE IF EXISTS ONLY public.order
+ALTER TABLE IF EXISTS ONLY public.ordered_items
     DROP CONSTRAINT IF EXISTS pk_order_id CASCADE;
 ALTER TABLE IF EXISTS ONLY public.products
     DROP CONSTRAINT IF EXISTS fk_category_name CASCADE;
@@ -17,7 +17,7 @@ DROP TABLE IF EXISTS public.products;
 DROP TABLE IF EXISTS public.supplier;
 DROP TABLE IF EXISTS public.category;
 DROP TABLE IF EXISTS public.customer;
-DROP TABLE IF EXISTS public.order;
+DROP TABLE IF EXISTS public.ordered_items;
 
 DROP SEQUENCE IF EXISTS products_id_seq;
 CREATE TABLE products
@@ -38,6 +38,8 @@ CREATE TABLE category
     department  varchar(255),
     description VARCHAR(255)
 );
+
+DROP SEQUENCE IF EXISTS supplier_id_seq;
 CREATE TABLE supplier
 (
     id          serial NOT NULL,
@@ -45,6 +47,7 @@ CREATE TABLE supplier
     description varchar(255)
 );
 
+DROP SEQUENCE IF EXISTS customer_id_seq;
 CREATE TABLE customer
 (
     id              serial NOT NULL,
@@ -55,14 +58,14 @@ CREATE TABLE customer
     shipping_address varchar(255)
 );
 
+DROP SEQUENCE IF EXISTS ordered_items_id_seq;
 CREATE TABLE ordered_items
 (
     id              serial NOT NULL,
     customer_id     int,
     transaction_id  varchar(32),
     product_id      int,
-    product_number  int,
-    submission_time timestamp with time zone
+    product_number  int
 );
 
 ALTER TABLE ONLY products
