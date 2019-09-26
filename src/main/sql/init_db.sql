@@ -4,14 +4,20 @@ ALTER TABLE IF EXISTS ONLY public.category
     DROP CONSTRAINT IF EXISTS pk_category_key CASCADE;
 ALTER TABLE IF EXISTS ONLY public.supplier
     DROP CONSTRAINT IF EXISTS pk_supplier_name CASCADE;
+ALTER TABLE IF EXISTS ONLY public.customer
+    DROP CONSTRAINT IF EXISTS pk_customer_id CASCADE;
+ALTER TABLE IF EXISTS ONLY public.order
+    DROP CONSTRAINT IF EXISTS pk_order_id CASCADE;
 ALTER TABLE IF EXISTS ONLY public.products
     DROP CONSTRAINT IF EXISTS fk_category_name CASCADE;
 ALTER TABLE IF EXISTS ONLY public.products
     DROP CONSTRAINT IF EXISTS fk_supplier_name CASCADE;
 
-DROP table if exists public.products;
+DROP TABLE IF EXISTS public.products;
 DROP TABLE IF EXISTS public.supplier;
 DROP TABLE IF EXISTS public.category;
+DROP TABLE IF EXISTS public.customer;
+DROP TABLE IF EXISTS public.order;
 
 DROP SEQUENCE IF EXISTS products_id_seq;
 CREATE TABLE products
@@ -39,13 +45,41 @@ CREATE TABLE supplier
     description varchar(255)
 );
 
+CREATE TABLE customer
+(
+    id              serial NOT NULL,
+    name            varchar(255),
+    email           varchar(255),
+    phone_number     varchar(16),
+    billing_address  varchar(255),
+    shipping_address varchar(255)
+);
+
+CREATE TABLE ordered_items
+(
+    id              serial NOT NULL,
+    customer_id     int,
+    transaction_id  varchar(32),
+    product_id      int,
+    product_number  int,
+    submission_time timestamp with time zone
+);
+
 ALTER TABLE ONLY products
     ADD CONSTRAINT pk_product_key PRIMARY KEY (id);
 ALTER TABLE ONLY category
     ADD CONSTRAINT pk_category_key PRIMARY KEY (id);
 ALTER TABLE ONLY supplier
     ADD CONSTRAINT pk_supplier_name PRIMARY KEY (id);
+ALTER TABLE ONLY customer
+    ADD CONSTRAINT pk_customer_id PRIMARY KEY (id);
+ALTER TABLE ONLY ordered_items
+    ADD CONSTRAINT pk_order_id PRIMARY KEY (id);
 ALTER TABLE ONLY products
     ADD CONSTRAINT fk_category_name FOREIGN KEY (category_id) REFERENCES category (id);
 ALTER TABLE ONLY products
     Add CONSTRAINT fk_supplier_name FOREIGN KEY (supplier_id) REFERENCES supplier (id);
+ALTER TABLE ONLY ordered_items
+    ADD CONSTRAINT fk_customer_id FOREIGN KEY (customer_id) REFERENCES customer (id);
+ALTER TABLE ONLY ordered_items
+    ADD CONSTRAINT fk_product_id FOREIGN KEY (product_id) REFERENCES products (id);
