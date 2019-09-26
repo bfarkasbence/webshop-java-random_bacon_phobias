@@ -173,3 +173,9 @@ body
     right: 0;
     z-index: 999;
 }
+
+.checkout-form
+{
+    padding-left: 5%;
+    padding-right: 5%;
+}
