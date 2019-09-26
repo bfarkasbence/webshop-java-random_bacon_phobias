@@ -16,10 +16,10 @@ INSERT INTO products VALUES (DEFAULT, 'Tropical Ipa', 1, 750, 'HUF', 1, 'A FIRST
 INSERT INTO products VALUES (DEFAULT, 'Twisted Pils', 4, 550, 'HUF', 1, 'Traditional czech lager craft beer.');
 INSERT INTO products VALUES (DEFAULT, 'Kohatu Kohatu', 1, 1200, 'HUF', 1, 'Single hop New england IPA');
 INSERT INTO products VALUES (DEFAULT, 'Milk Stout', 3, 900, 'HUF', 2, 'Black stout beer');
-INSERT INTO products VALUES (DEFAULT, 'Black Jack', 1, 500, 'HUF', 3, 'Good old hungarian IPA');
+INSERT INTO products VALUES (DEFAULT, 'Black Jack', 1, 500, 'HUF', 2, 'Good old hungarian IPA');
 INSERT INTO products VALUES (DEFAULT, 'Buldozer', 1, 700, 'HUF', 2, 'Simple IPA.');
 INSERT INTO products VALUES (DEFAULT, 'Six Fingers', 4,  800, 'HUF', 2, 'Harmonic taste in weeise beer');
-INSERT INTO products VALUES (DEFAULT, 'American Beauty', 2, 750, 'HUF', 2, 'American Pale Ale');
+INSERT INTO products VALUES (DEFAULT, 'American Beauty', 2, 750, 'HUF', 3, 'American Pale Ale');
 INSERT INTO products VALUES (DEFAULT, 'Black Mamba', 3,950, 'HUF', 3, 'Black milk stout!');
 INSERT INTO products VALUES (DEFAULT, 'Flying Rabbit', 1, 650, 'HUF', 3, 'American IPA');
 INSERT INTO products VALUES (DEFAULT, 'Schatzi', 4, 800, 'HUF', 3, 'Simple Lager');
