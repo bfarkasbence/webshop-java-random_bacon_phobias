@@ -101,10 +101,10 @@ public class ProductDaoJdbc extends DaoJdbc implements com.codecool.shop.dao.Pro
                         supplierDao.find(supplier_id));
                 resultProduct.setId(resultSet.getInt("id"));
                 result.add(resultProduct);
-                System.out.println(resultProduct);
+
 
             }
-            System.out.println(result);
+
             return result;
         } catch (SQLException e) {
             e.printStackTrace();
