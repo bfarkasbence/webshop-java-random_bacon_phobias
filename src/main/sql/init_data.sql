@@ -1,0 +1,30 @@
+INSERT INTO supplier VALUES (0, 'First Craft Beer', 'Beer');
+INSERT INTO supplier VALUES (1, 'Legenda Brewing', 'Beer');
+INSERT INTO supplier VALUES (2, 'MONYO Brewing Co.', 'Beer');
+INSERT INTO supplier VALUES (3, 'Szent Andras Brewin', 'Beer');
+INSERT INTO supplier VALUES (4, 'Simple Wate', 'Beer');
+INSERT INTO supplier VALUES (5, 'CodeCool', 'Beer');
+
+INSERT INTO category VALUES (0, 'IPA', 'Beer', 'Beer is a teast flued witch make you smile');
+INSERT INTO category VALUES (1, 'APA', 'Beer', 'Beer is a teast flued witch make you smile');
+INSERT INTO category VALUES (2, 'Stout', 'Beer', 'Beer is a teast flued witch make you smile');
+INSERT INTO category VALUES (3, 'Lager', 'Beer', 'Beer is a teast flued witch make you smile');
+INSERT INTO category VALUES (4, 'Water', 'Water', 'Water is health!');
+
+INSERT INTO products VALUES (0, 'Fake Coffee', 2, 650, 'HUF', 0, 'Stout style black craft beer with good old coffee taste');
+INSERT INTO products VALUES (1, 'Tropical Ipa', 0, 750, 'HUF', 0, 'A FIRST Tropical IPA  with awsome tropical taste');
+INSERT INTO products VALUES (2, 'Twisted Pils', 3, 550, 'HUF', 0, 'Traditional czech lager craft beer.');
+INSERT INTO products VALUES (3, 'Kohatu Kohatu', 0, 1200, 'HUF', 0, 'Single hop New england IPA');
+INSERT INTO products VALUES (4, 'Milk Stout', 2, 900, 'HUF', 1, 'Black stout beer');
+INSERT INTO products VALUES (5, 'Black Jack', 0, 500, 'HUF', 1, 'Good old hungarian IPA');
+INSERT INTO products VALUES (6, 'Buldozer', 0, 700, 'HUF', 1, 'Simple IPA.');
+INSERT INTO products VALUES (7, 'Six Fingers', 3,  800, 'HUF', 1, 'Harmonic taste in weeise beer');
+INSERT INTO products VALUES (8, 'American Beauty', 1, 750, 'HUF', 1, 'American Pale Ale');
+INSERT INTO products VALUES (9, 'Black Mamba', 2,950, 'HUF', 2, 'Black milk stout!');
+INSERT INTO products VALUES (10, 'Flying Rabbit', 0, 650, 'HUF', 2, 'American IPA');
+INSERT INTO products VALUES (11, 'Schatzi', 3, 800, 'HUF', 2, 'Simple Lager');
+INSERT INTO products VALUES (12, 'Bandiba', 0, 650, 'HUF', 3, 'Tasty American IPA');
+INSERT INTO products VALUES (13, 'Esthajnal 18', 2, 1000, 'HUF', 3, 'Strong stout with plum flavoring');
+INSERT INTO products VALUES (14, 'Ogre', 3, 540, 'HUF', 3, 'Strong tasty lager');
+INSERT INTO products VALUES (15, 'CodeCool Beer', 0, 900, 'HUF', 5, 'Tasty IPA from the best!');
+INSERT INTO products VALUES (16, 'Tap water', 4, 15000, 'HUF', 4, 'Quality from wall!');
