@@ -3,11 +3,8 @@ package com.codecool.shop.controller;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
+import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
-import com.codecool.shop.dao.implementation.ShoppingCartDaoMem;
 import com.codecool.shop.model.OrderedItem;
 import com.codecool.shop.model.Product;
 import org.thymeleaf.TemplateEngine;
@@ -29,9 +26,9 @@ public class ProductController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ProductDao productDataStore = ProductDaoMem.getInstance();
-        ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-        SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
+        ProductDao productDataStore = new ProductDaoJdbc();
+        ProductCategoryDao productCategoryDataStore = new ProductCategoryDaoJdbc();
+        SupplierDao supplierDataStore = new SupplierDaoJdbc();
         ShoppingCartDaoMem shoppingCart = ShoppingCartDaoMem.getInstance();
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
@@ -45,7 +42,14 @@ public class ProductController extends HttpServlet {
 
         context.setVariable("category", productCategoryDataStore.find(selectedCategory));
         context.setVariable("supplier", supplierDataStore.find(selectedSupplier));
-        context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(selectedCategory), supplierDataStore.find(selectedSupplier)));
+        if (selectedCategory == 0 && selectedSupplier == 0) {
+            context.setVariable("products",productDataStore.getAll());
+        }
+        else if (selectedCategory == 0){context.setVariable("products", productDataStore.getBy(supplierDataStore.find(selectedSupplier)));}
+        else if (selectedSupplier==0){context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(selectedCategory)));}
+        else{
+            context.setVariable("products", productDataStore.getBy(productCategoryDataStore.find(selectedCategory), supplierDataStore.find(selectedSupplier)));
+        }
 
         engine.process("product/index.html", context, resp.getWriter());
     }

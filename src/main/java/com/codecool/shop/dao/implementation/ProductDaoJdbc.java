@@ -61,7 +61,6 @@ public class ProductDaoJdbc extends DaoJdbc implements com.codecool.shop.dao.Pro
                         categoryDao.find(category_id),
                         supplierDao.find(supplier_id));
                 result.setId(resultSet.getInt("id"));
-                System.out.println(result);
                 return result;
             }
 
@@ -85,7 +84,7 @@ public class ProductDaoJdbc extends DaoJdbc implements com.codecool.shop.dao.Pro
 
     @Override
     public List<Product> getAll() {
-        List<Product> result = new ArrayList<Product>();
+        List<Product> result = new ArrayList<>();
         String sqlStatement = "SELECT * FROM products;";
         try(Connection connection = DriverManager.getConnection(DB_URL,USERNAME,PASSWORD);
             PreparedStatement statement = connection.prepareStatement(sqlStatement)){
@@ -102,6 +101,7 @@ public class ProductDaoJdbc extends DaoJdbc implements com.codecool.shop.dao.Pro
                         supplierDao.find(supplier_id));
                 resultProduct.setId(resultSet.getInt("id"));
                 result.add(resultProduct);
+                System.out.println(resultProduct);
 
             }
             System.out.println(result);
@@ -133,7 +133,6 @@ public class ProductDaoJdbc extends DaoJdbc implements com.codecool.shop.dao.Pro
                 resultProduct.setId(resultSet.getInt("id"));
                 result.add(resultProduct);
             }
-            System.out.println(result);
             return result;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -162,7 +161,6 @@ public class ProductDaoJdbc extends DaoJdbc implements com.codecool.shop.dao.Pro
                 resultProduct.setId(resultSet.getInt("id"));
                 result.add(resultProduct);
             }
-            System.out.println(result);
             return result;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -192,7 +190,6 @@ public class ProductDaoJdbc extends DaoJdbc implements com.codecool.shop.dao.Pro
                     resultProduct.setId(resultSet.getInt("id"));
                     result.add(resultProduct);
                 }
-                System.out.println(result);
                 return result;
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -201,22 +198,4 @@ public class ProductDaoJdbc extends DaoJdbc implements com.codecool.shop.dao.Pro
         }
 
 
-    public static void main(String[] args) {
-        ProductCategoryDao categoryDao = new ProductCategoryDaoJdbc();
-        SupplierDao supplierDao = new SupplierDaoJdbc();
-        ProductCategory stout = categoryDao.find(1);
-        Supplier legenda = supplierDao.find(1);
-        Product product = new Product("Milk Stout", 900, "HUF", "Black stout beer", stout, legenda);
-/*
-//        Product product1 = new Product("CodeCool Beer",900,"HUF","Tasty IPA from the best!",stout,codecool);
-*/
-
-        ProductDaoJdbc conn = new ProductDaoJdbc();
-//        conn.add(product);
-        conn.find(6);
-        conn.getAll();
-        conn.getBy(legenda);
-        conn.getBy(stout);
-        conn.getBy(stout,legenda);
-    }
 }
