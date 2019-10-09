@@ -12,12 +12,15 @@ ALTER TABLE IF EXISTS ONLY public.products
     DROP CONSTRAINT IF EXISTS fk_category_name CASCADE;
 ALTER TABLE IF EXISTS ONLY public.products
     DROP CONSTRAINT IF EXISTS fk_supplier_name CASCADE;
+ALTER TABLE IF EXISTS ONLY public.users
+    DROP CONSTRAINT IF EXISTS pk_user_id CASCADE;
 
 DROP TABLE IF EXISTS public.products;
 DROP TABLE IF EXISTS public.supplier;
 DROP TABLE IF EXISTS public.category;
 DROP TABLE IF EXISTS public.customer;
 DROP TABLE IF EXISTS public.ordered_items;
+DROP TABLE IF EXISTS public.users;
 
 DROP SEQUENCE IF EXISTS products_id_seq;
 CREATE TABLE products
@@ -55,7 +58,8 @@ CREATE TABLE customer
     email           varchar(255),
     phone_number     varchar(16),
     billing_address  varchar(255),
-    shipping_address varchar(255)
+    shipping_address varchar(255),
+    user_id          int
 );
 
 DROP SEQUENCE IF EXISTS ordered_items_id_seq;
@@ -68,6 +72,16 @@ CREATE TABLE ordered_items
     product_number  int
 );
 
+DROP SEQUENCE IF EXISTS users_id_seq;
+CREATE TABLE users
+(
+  id                serial NOT NULL,
+  username          varchar(32) NOT NULL,
+  password          varchar(255) NOT NULL,
+  email             varchar(255) NOT NULL
+
+);
+
 ALTER TABLE ONLY products
     ADD CONSTRAINT pk_product_key PRIMARY KEY (id);
 ALTER TABLE ONLY category
@@ -78,6 +92,8 @@ ALTER TABLE ONLY customer
     ADD CONSTRAINT pk_customer_id PRIMARY KEY (id);
 ALTER TABLE ONLY ordered_items
     ADD CONSTRAINT pk_order_id PRIMARY KEY (id);
+ALTER TABLE ONLY users
+    ADD CONSTRAINT pk_user_id PRIMARY KEY (id);
 ALTER TABLE ONLY products
     ADD CONSTRAINT fk_category_name FOREIGN KEY (category_id) REFERENCES category (id);
 ALTER TABLE ONLY products
@@ -86,3 +102,5 @@ ALTER TABLE ONLY ordered_items
     ADD CONSTRAINT fk_customer_id FOREIGN KEY (customer_id) REFERENCES customer (id);
 ALTER TABLE ONLY ordered_items
     ADD CONSTRAINT fk_product_id FOREIGN KEY (product_id) REFERENCES products (id);
+ALTER TABLE ONLY customer
+    ADD CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id);
