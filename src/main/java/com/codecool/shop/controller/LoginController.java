@@ -1,6 +1,7 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.dao.UsersDao;
+import com.codecool.shop.dao.implementation.UsersDaoJdbc;
 import com.codecool.shop.util.Util;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -18,14 +19,19 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        UsersDao usersDaoJdbc = new UsersDaoJdbc();
         BufferedReader reader = req.getReader();
         JSONTokener tokener = new JSONTokener(reader);
         JSONObject json = new JSONObject(tokener);
         String userName = json.getString("username");
         String plainTextPassword = json.getString("password");
         Util passwordChecker = new Util();
-        passwordChecker.verify(plainTextPassword, UsersDao.getPasswordForUser());
-
+        if (passwordChecker.verify(plainTextPassword, usersDaoJdbc.getPasswordForUser(userName))){
+            //TODO session logged in
+        }
+        else {
+            //TODO wrong pw or username -> redirect
+        }
         super.doPost(req, resp);
     }
 }

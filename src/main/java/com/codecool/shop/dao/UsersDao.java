@@ -4,5 +4,5 @@ import com.codecool.shop.dao.UsersDao;
 
 
 public interface UsersDao {
-    public String getPasswordForUser();
+    public String getPasswordForUser(String username);
 }
