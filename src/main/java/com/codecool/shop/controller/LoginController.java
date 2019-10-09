@@ -27,10 +27,10 @@ public class LoginController extends HttpServlet {
         String plainTextPassword = json.getString("password");
         Util passwordChecker = new Util();
         if (passwordChecker.verify(plainTextPassword, usersDaoJdbc.getPasswordForUser(userName))){
-            //TODO session logged in
+            //TODO session logged in -> redirect to homepage
         }
         else {
-            //TODO wrong pw or username -> redirect
+            //TODO wrong pw or username -> send back json
         }
         super.doPost(req, resp);
     }
