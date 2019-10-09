@@ -1,10 +1,13 @@
 package com.codecool.shop.controller;
 
+import com.codecool.shop.config.TemplateEngineUtil;
 import com.codecool.shop.dao.UsersDao;
 import com.codecool.shop.dao.implementation.UsersDaoJdbc;
 import com.codecool.shop.util.Util;
 import org.json.JSONObject;
 import org.json.JSONTokener;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.WebContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +19,13 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/login")
 public class LoginController extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        WebContext context = new WebContext(req, resp, req.getServletContext());
+        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
+        engine.process("login.html", context, resp.getWriter());
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
