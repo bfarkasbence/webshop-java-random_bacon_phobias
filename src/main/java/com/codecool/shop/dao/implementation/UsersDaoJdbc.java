@@ -26,12 +26,41 @@ public class UsersDaoJdbc extends DaoJdbc implements UsersDao {
         return null;
     }
 
-    public void register(String username, String password, String email) {
+    @Override
+    public boolean checkUserNameIsUsed(String userName) {
+        String sqlStatement = "SELECT username FROM users WHERE username = ?;";
+        try( Connection connection = DriverManager.getConnection(DB_URL,USERNAME,PASSWORD);
+        PreparedStatement statement = connection.prepareStatement(sqlStatement)){
+        statement.setString(1, userName);
+        ResultSet result = statement.executeQuery();
+        if (!result.next()) { return false;}
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    @Override
+    public boolean checkEmailIsUsed(String email) {
+        String sqlStatement = "SELECT email FROM users WHERE email = ?;";
+        try( Connection connection = DriverManager.getConnection(DB_URL,USERNAME,PASSWORD);
+             PreparedStatement statement = connection.prepareStatement(sqlStatement)){
+            statement.setString(1, email);
+            ResultSet result = statement.executeQuery();
+            if (!result.next()) {return false;}
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    public void registerUser(String username, String password, String email) {
         String sqlStatement = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
         try (Connection connection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
              PreparedStatement statement = connection.prepareStatement(sqlStatement)) {
             statement.setString(1, username);
-            statement.setString(2, util.hash(password));
+            statement.setString(2, password);
             statement.setString(3, email);
             statement.executeUpdate();
 
@@ -40,8 +69,4 @@ public class UsersDaoJdbc extends DaoJdbc implements UsersDao {
         }
     }
 
-    public static void main(String[] args) {
-        UsersDaoJdbc usr = new UsersDaoJdbc();
-        usr.register("admin", "admin", "admin@admin.com");
-    }
 }
