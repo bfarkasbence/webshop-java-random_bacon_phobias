@@ -8,6 +8,7 @@ public class Util {
     }
 
     public boolean verify(String password, String hashedPassword){
+        if(hashedPassword == null){return false;}
         return BCrypt.checkpw(password, hashedPassword);
     }
 

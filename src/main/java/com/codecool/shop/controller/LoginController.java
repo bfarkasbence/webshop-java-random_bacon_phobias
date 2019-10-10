@@ -14,8 +14,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet(urlPatterns = "/login")
 public class LoginController extends HttpServlet {
@@ -38,10 +41,27 @@ public class LoginController extends HttpServlet {
         Util passwordChecker = new Util();
         if (passwordChecker.verify(plainTextPassword, usersDaoJdbc.getPasswordForUser(userName))){
             //TODO session logged in -> redirect to homepage
+            System.out.println("siker");
+            HttpSession session = req.getSession();
+            session.setAttribute("logged-in", true);
+            session.setAttribute("username", userName);
+            System.out.println(session);
+            System.out.println(session.getAttribute("logged-in"));
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+            PrintWriter message = resp.getWriter();
+            message.print(true);
+            message.flush();
+
         }
         else {
             //TODO wrong pw or username -> send back json
+            System.out.println("sikertelen");
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+            PrintWriter message = resp.getWriter();
+            message.print(false);
+            message.flush();
         }
-        super.doPost(req, resp);
     }
 }

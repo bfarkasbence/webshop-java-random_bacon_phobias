@@ -16,7 +16,8 @@ public class UsersDaoJdbc extends DaoJdbc implements UsersDao {
              PreparedStatement statement = connection.prepareStatement(sqlStatement)) {
             statement.setString(1, username);
             ResultSet result = statement.executeQuery();
-            return result.getString("password");
+            if (result.next()){return result.getString("password");}
+            return null;
 
 
         } catch (SQLException e) {
